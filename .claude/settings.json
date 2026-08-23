@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(javac -d out src/com/gdufe/lesson10/*.java)",
+      "Bash(java -cp out com.gdufe.lesson10.LeetCode_283)",
+      "Bash(java -cp out com.gdufe.lesson10.LeetCode_70)"
+    ]
+  }
+}
