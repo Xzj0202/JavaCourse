@@ -8,7 +8,15 @@
       "Bash(java -cp out com.gdufe.lesson11.LeetCode_88)",
       "Bash(java -cp out com.gdufe.lesson11.LeetCode_118)",
       "Bash(javac -d out src/com/gdufe/collection/MyArrayList.java)",
-      "Bash(java -cp out com.gdufe.collection.MyArrayList)"
+      "Bash(java -cp out com.gdufe.collection.MyArrayList)",
+      "Bash(mkdir -p \"d:/Users/Xzj/Desktop/MyJava/JavaCourse/src/com/gdufe/shape\")",
+      "Bash(javac -d out src/com/gdufe/shape/*.java)",
+      "Bash(java -cp out com.gdufe.shape.ShapeTest)",
+      "Bash(javac -d out src/com/gdufe/collection/MyHashMap.java)",
+      "Bash(java -cp out com.gdufe.collection.MyHashMap)"
+    ],
+    "additionalDirectories": [
+      "d:\\Users\\Xzj\\Desktop\\MyJava\\JavaCourse\\src\\com\\gdufe\\shape"
     ]
   }
 }
