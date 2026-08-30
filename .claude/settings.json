@@ -14,7 +14,8 @@
       "Bash(java -cp out com.gdufe.shape.ShapeTest)",
       "Bash(javac -d out src/com/gdufe/collection/MyHashMap.java)",
       "Bash(java -cp out com.gdufe.collection.MyHashMap)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Read(//d/Users/Xj/Desktop/MyJava/JavaCourse/src/com/gdufe/collection/**)"
     ],
     "additionalDirectories": [
       "d:\\Users\\Xzj\\Desktop\\MyJava\\JavaCourse\\src\\com\\gdufe\\shape"

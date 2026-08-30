@@ -1,7 +1,7 @@
 package com.gdufe.thread;
 
 public class Lesson13 {
-    static boolean flag = false; // 控制线程交替
+    static boolean flag = false; // 共享条件：A 要等 flag 变 true 才能继续
     static Object lock = new Object();
 
     // 定义线程A的任务

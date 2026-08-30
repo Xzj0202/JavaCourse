@@ -8,7 +8,8 @@ public class Lesson15 {
         private int in = 0; // 下一个生产位置
         private int out = 0; // 下一个消费位置
 
-        private Object lock = new Object(); // 锁对象
+        // 注意：没有单独的 lock 字段——synchronized 修饰方法 = synchronized(this)，
+        // 锁的就是 Buffer 实例本身；wait/notify 操作的也是 this 的等待队列
 
         // 生产数据
         public synchronized void produce(int data) throws InterruptedException {
@@ -70,16 +71,10 @@ public class Lesson15 {
 
         // 消费者任务
         class Consumer implements Runnable {
-            private final int id;
-
-            Consumer(int id) {
-                this.id = id;
-            }
-
             public void run() {
                 try {
                     for (int i = 0; i < 20; i++) {
-                        int data = buffer.consume();
+                        buffer.consume(); // 消费的内容已由 consume() 内部打印
                         Thread.sleep(100); // 消费稍慢一些
                     }
                 } catch (InterruptedException e) {
@@ -91,8 +86,8 @@ public class Lesson15 {
         // 创建2个生产者和2个消费者
         Thread producer1 = new Thread(new Producer(1));
         Thread producer2 = new Thread(new Producer(2));
-        Thread consumer1 = new Thread(new Consumer(1));
-        Thread consumer2 = new Thread(new Consumer(2));
+        Thread consumer1 = new Thread(new Consumer());
+        Thread consumer2 = new Thread(new Consumer());
 
         // 启动所有线程
         producer1.start();

@@ -101,6 +101,10 @@ public class MyHashMap<K, V> {
         return size;
     }
 
+    public int capacity() {
+        return table.length;
+    }
+
     public static void main(String[] args) {
         MyHashMap<String, Integer> map = new MyHashMap<>();
         System.out.println("初始容量: " + map.capacity()); // 16

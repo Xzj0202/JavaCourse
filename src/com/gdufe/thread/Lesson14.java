@@ -10,7 +10,7 @@ public class Lesson14 {
             synchronized (lock1) {
                 System.out.println("线程A获取了lock1");
                 try {
-                    Thread.sleep(100); // 短暂等待，让线程B有机会获取lock2
+                    Thread.sleep(100); // 短暂等待，制造线程交错
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -22,19 +22,19 @@ public class Lesson14 {
         }
     }
 
-    // 线程B：先获取lock2，再获取lock1
+    // 线程B：先获取lock1，再获取lock2（与A同序，破坏循环等待——死锁预防版）
     static class TaskB implements Runnable {
         public void run() {
-            synchronized (lock2) {
-                System.out.println("线程B获取了lock2");
+            synchronized (lock1) {
+                System.out.println("线程B获取了lock1");
                 try {
                     Thread.sleep(100); // 短暂等待
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("线程B尝试获取lock1...");
-                synchronized (lock1) {
-                    System.out.println("线程B获取了lock1，完成工作");
+                System.out.println("线程B尝试获取lock2...");
+                synchronized (lock2) {
+                    System.out.println("线程B获取了lock2，完成工作");
                 }
             }
         }
@@ -53,12 +53,13 @@ public class Lesson14 {
         threadA.start();
         threadB.start();
 
-        // 等待1秒让死锁形成
-        Thread.sleep(1000);
+        threadA.join();
+        threadB.join();
+        System.out.println("\n=== 程序正常结束：统一加锁顺序 → 循环等待被破坏 → 死锁不再出现 ===");
 
-        // 提示如何分析死锁
-        System.out.println("\n=== 程序已卡住，使用jstack分析 ===");
-        System.out.println("打开新的终端窗口，执行：");
-        System.out.println("jstack " + threadA.getId() + " > deadlock.txt");
+        // 想复现死锁做 jstack 实操：把 TaskB 的两个 synchronized 块对调回「先 lock2 后 lock1」，
+        // 跑起来卡住后另开终端执行（jstack 要进程 pid，不是线程 id；Windows 完全可用）：
+        //   第 1 步：jps -l        ← 找到本程序的 pid（认准 Lesson14 那行）
+        //   第 2 步：jstack <pid>  ← 拉到最底看 Found one Java-level deadlock
     }
 }

@@ -1,7 +1,5 @@
 package com.gdufe.lesson11;
 
-import java.util.Arrays;
-
 public class LeetCode_88 {
     // LeetCode_88 合并两个有序数组
     public void merge(int[] nums1, int m, int[] nums2, int n) {
